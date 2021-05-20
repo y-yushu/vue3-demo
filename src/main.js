@@ -11,4 +11,12 @@ import { store } from '@/store'
 import ElementPlus from 'element-plus'
 import 'element-plus/lib/theme-chalk/index.css'
 
-createApp(App).use(router).use(store).use(ElementPlus, { size: 'small' }).mount('#app')
+/**
+ * 指令
+ */
+// 拖动指令
+import drag from '@/directive/drag'
+// 注册盒子指令
+import box from '@/directive/box'
+
+createApp(App).use(router).use(store).use(ElementPlus, { size: 'small' }).directive('drag', drag).directive('box', box).mount('#app')

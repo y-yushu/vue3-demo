@@ -5,7 +5,7 @@ const router = new createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/user'
+      redirect: '/home'
     },
     {
       path: '/home',
