@@ -1,11 +1,16 @@
 export default {
-  mounted: el => {
+  mounted: (el, binding) => {
     // 获取元素基本属性
     const p = el.parentNode // 父级元素
     const parentWidth = p.offsetWidth // 父级宽度
     const parentHeight = p.offsetHeight // 父级高度
     const disWidth = el.offsetWidth // 自身宽度
     const disHeight = el.offsetHeight // 自身高度
+    // 参数
+    const { value } = binding
+    const blank = () => {}
+    const locateCallback = (value && value.locateCallback) || blank
+    console.log('接收方法', locateCallback)
     /**
      * 鼠标按下
      * @param {*} e 绑定元素
@@ -38,17 +43,18 @@ export default {
       document.onmouseup = e => {
         document.onmousemove = null
         document.onmouseup = null
-        console.log('距离', window.boxLocation)
-        let i = 10
-        const timer = setInterval(() => {
-          i += 10
-          if (i >= 180) i = 10
-          el.rotate(i)
-        }, 200)
-        // setTimeout(() => {
-        //   console.log('自销毁')
-        //   el.remove()
-        // }, 2000)
+        console.log('操作前', el.classList)
+        el.classList.add('cs_color')
+        el.addEventListener('animationend', anim => {
+          locateCallback({
+            width: el.style.width,
+            height: el.style.height,
+            left: el.style.left,
+            top: el.style.top
+          })
+          el.classList.remove('cs_color')
+        })
+        console.log('操作后', el.classList)
       }
     }
   }

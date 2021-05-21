@@ -12,8 +12,9 @@ const router = new createRouter({
       component: () => import('@/view/Home.vue')
     },
     {
-      path: '/user',
-      component: () => import('@/view/User.vue')
+      // 第一版本
+      path: '/home1',
+      component: () => import('@/view/Home1.vue')
     }
   ]
 })
