@@ -15,7 +15,7 @@ export default {
   data() {
     return {
       socket: null,
-      url: 'ws://127.0.0.1:8001/ws/',
+      url: 'ws://127.0.0.1:8001/ws/socketTest/',
       id: nanoid(),
       content: ''
     }
@@ -30,7 +30,6 @@ export default {
         console.error('浏览器不支持socket')
       } else {
         // 实例化socket
-        console.log(`id`, this.id)
         this.socket = new WebSocket(this.url + this.id)
         // 监听socket连接
         this.socket.onopen = this.open
@@ -42,7 +41,7 @@ export default {
     },
     // 链接成功
     open() {
-      console.log('WebSocket连接成功')
+      console.log(this.id, '连接成功')
     },
     // 链接异常
     error() {
@@ -59,13 +58,16 @@ export default {
     // 接收消息
     getMessage(ms) {
       console.log('接收消息', ms)
-      const res = JSON.parse(ms.data)
-      if (res.code === 2000) {
-        console.log('接收消息', res)
+      try {
+        const data = JSON.parse(ms.data)
+        console.log('消息内容', data)
+      } catch (err) {
+        console.error('解析异常', ms.data)
       }
     },
     // 关闭链接
     close() {
+      console.log(this.id, '退出连接')
       this.socket.close()
     }
   }
