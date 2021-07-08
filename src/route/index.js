@@ -5,21 +5,27 @@ const router = new createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/home1'
+      redirect: '/20210708'
     },
     {
+      // websocket长连接
       path: '/home',
       component: () => import('@/view/Home.vue')
     },
     {
-      // 第一版本
+      // dom定位及css效果
       path: '/home1',
       component: () => import('@/view/Home1.vue')
+    },
+    {
+      // 元素传值及当前方法接收
+      path: '/20210708',
+      component: () => import('@/view/20210708/index.vue')
     }
   ]
 })
 
-router.beforeEach((to, from, next) => {
+router.beforeEach((_1, _2, next) => {
   next()
 })
 
