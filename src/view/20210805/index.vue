@@ -1,111 +1,84 @@
 <template>
-  <div :style="type.lengthen ? 'color: red;' : ''">
-    {{ `${dd}日 ${hh}时 ${mm}分 ${ss}秒` }}
-  </div>
+  <el-table ref="elTable" :data="tableData" :span-method="arraySpanMethod" border style="width: 100%" id="exportTab">
+    <el-table-column prop="id" label="ID" width="180" />
+    <el-table-column prop="name" label="姓名" />
+    <el-table-column label="数据">
+      <el-table-column prop="amount1" sortable label="数值 1" />
+      <el-table-column prop="amount2" sortable label="数值 2" />
+      <el-table-column prop="amount3" sortable label="数值 3" />
+    </el-table-column>
+  </el-table>
+  <el-button @click="tttt">导出</el-button>
 </template>
 
 <script>
+import FileSaver from 'file-saver'
+import XLSX from 'xlsx'
+
 export default {
   data() {
     return {
-      // 状态
-      type: {
-        lengthen: false,
-        stop: false
-      },
-      // 日时分秒
-      dd: '00',
-      hh: '00',
-      mm: '00',
-      ss: '00',
-      timer: null
+      tableData: [
+        {
+          id: '12987122',
+          name: '王小虎',
+          amount1: '234',
+          amount2: '3.2',
+          amount3: 10
+        },
+        {
+          id: '12987123',
+          name: '王小虎',
+          amount1: '165',
+          amount2: '4.43',
+          amount3: 12
+        },
+        {
+          id: '12987124',
+          name: '王小虎',
+          amount1: '324',
+          amount2: '1.9',
+          amount3: 9
+        },
+        {
+          id: '12987125',
+          name: '王小虎',
+          amount1: '621',
+          amount2: '2.2',
+          amount3: 17
+        },
+        {
+          id: '12987126',
+          name: '王小虎',
+          amount1: '539',
+          amount2: '4.1',
+          amount3: 15
+        }
+      ]
     }
   },
-  mounted() {
-    this.getCountDown()
-  },
-  destroyed() {
-    clearTimeout(this.timer)
-  },
   methods: {
-    // 模拟接口发送
-    _post() {
-      return new Promise((res, err) => {
-        setTimeout(() => {
-          console.log('后台返回')
-          res({ dd: 0, hh: 0, mm: 1, ss: 2 })
-        }, 1000 * 1)
-      })
-    },
-    // 开始倒计时方法
-    getCountDown() {
-      console.log('开始校准时间及状态')
-      this._post()
-        .then(res => {
-          clearTimeout(this.timer)
-          const { dd, hh, mm, ss } = res
-          let boo = false
-          const { _dd, _hh, _mm, _ss, stop } = this._automaticMinusOne(dd, hh, mm, ss)
-          this.dd = _dd
-          this.hh = _hh
-          this.mm = _mm
-          this.ss = _ss
-          boo = stop
-          this.timer = setInterval(() => {
-            const { dd, hh, mm, ss } = this
-            const { _dd, _hh, _mm, _ss, stop } = this._automaticMinusOne(dd, hh, mm, ss)
-            this.dd = _dd
-            this.hh = _hh
-            this.mm = _mm
-            this.ss = _ss
-            boo = stop
-          }, 1000) // 循环间隔 单位ms
-          if (!boo) {
-            // 如果没有暂停，则下次继续校准时间
-            // setTimeout(() => {
-            //   this.getCountDown()
-            // }, 1000 * 10) // 每10s刷新一次时间
-          }
-        })
-        .catch(err => {
-          console.error(err)
-          setTimeout(() => {
-            this.getCountDown()
-          }, 1000 * 10) // 每10s刷新一次时间
-        })
-    },
-    /**
-     * 倒计时减1s
-     */
-    _automaticMinusOne(dd, hh, mm, ss) {
-      let _dd = Number(dd)
-      let _hh = Number(hh)
-      let _mm = Number(mm)
-      let _ss = Number(ss)
-      let boo = false // 是否结束
-      const toTwo = num => {
-        return num > 10 ? num.toString() : '0' + num
-      }
-      // 开始倒计时
-      _ss--
-      if (_ss < 0) {
-        _ss = 59
-        _mm--
-        if (_mm < 0) {
-          _mm = 59
-          _hh--
-          if (_hh < 0) {
-            _hh = 23
-            _dd--
-            if (_dd < 0) {
-              _dd = _hh = _mm = _ss = 0
-              boo = true
-              clearTimeout(this.timer)
-            }
-          }
+    arraySpanMethod({ rowIndex, columnIndex }) {
+      if (rowIndex % 2 === 0) {
+        if (columnIndex === 0) {
+          return [1, 2]
+        } else if (columnIndex === 1) {
+          return [0, 0]
         }
       }
-      return { _dd: toTwo(_dd), _hh: toTwo(_hh), _mm: toTwo(_mm), _ss: toTwo(_ss), stop: boo }
+    },
+    tttt() {
+      const xlsxParam = { raw: true }
+      const wb = XLSX.utils.table_to_book(document.querySelector('#exportTab'), xlsxParam)
+      const wbout = XLSX.write(wb, { bookType: 'xlsx', bookSST: true, type: 'array' })
+      try {
+        FileSaver.saveAs(new Blob([wbout], { type: 'application/octet-stream' }), '审核情况表.xlsx')
+      } catch (e) {
+        if (typeof console !== 'undefined') {
+          console.log(e, wbout)
+        }
+      }
+      return wbout
     }
   }
 }

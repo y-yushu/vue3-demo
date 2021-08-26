@@ -5,6 +5,7 @@
     <div class="demo" v-drag="{ locateCallback: locateCallback }">
       <span class="demo_span">{{ title }}</span>
     </div>
+    <span :style="boo?'color: red;':''" @click="tttt">123</span>
   </div>
 </template>
 
@@ -13,12 +14,16 @@ export default {
   name: 'Home',
   data() {
     return {
-      title: 'My Home'
+      title: 'My Home',
+      boo: false
     }
   },
   methods: {
     locateCallback(data = {}) {
       console.log('定位回调', data)
+    },
+    tttt(){
+      this.boo = !this.boo
     }
   }
 }
