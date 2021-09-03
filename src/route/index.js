@@ -5,7 +5,7 @@ const router = new createRouter({
   routes: [
     {
       path: '/',
-      redirect: '/20210825'
+      redirect: '/20210901'
     },
     {
       // websocket长连接
@@ -31,6 +31,16 @@ const router = new createRouter({
       // 测试批量校验
       path: '/20210825',
       component: () => import('@/view/20210825/index.vue')
+    },
+    {
+      // 尝试新的合并单元格
+      path: '/20210830',
+      component: () => import('@/view/20210830/index.vue')
+    },
+    {
+      // 尝试新的合并单元格
+      path: '/20210901',
+      component: () => import('@/view/20210901/index.vue')
     }
   ]
 })
