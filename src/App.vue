@@ -8,8 +8,6 @@ const router = useRouter()
 
 // 当前路由
 const active = ref(redirect)
-// 路由列表
-const menuList = routes.reverse()
 // 路由跳转
 const toMenu = ({ path }) => router.push({ path })
 
@@ -24,7 +22,7 @@ watch(
   <div class="page_grid">
     <div class="page_left">
       <el-menu :default-active="active" class="el-menu-vertical-demo">
-        <el-menu-item v-for="item in menuList" :key="item.path" :index="item.path" @click="toMenu(item)">
+        <el-menu-item v-for="item in routes" :key="item.path" :index="item.path" @click="toMenu(item)">
           <span>{{ item.title }}</span>
         </el-menu-item>
       </el-menu>
