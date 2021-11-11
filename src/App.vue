@@ -1,5 +1,38 @@
+<script setup>
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { redirect, routes } from '@/route/index.js'
+
+// 路由
+const router = useRouter()
+
+// 当前路由
+const active = ref(redirect)
+// 路由列表
+const menuList = routes.reverse()
+// 路由跳转
+const toMenu = ({ path }) => router.push({ path })
+
+// 路由改变
+watch(
+  () => router.currentRoute.value.path,
+  path => (active.value = path)
+)
+</script>
+
 <template>
-  <router-view />
+  <div class="page_grid">
+    <div class="page_left">
+      <el-menu :default-active="active" class="el-menu-vertical-demo">
+        <el-menu-item v-for="item in menuList" :key="item.path" :index="item.path" @click="toMenu(item)">
+          <span>{{ item.title }}</span>
+        </el-menu-item>
+      </el-menu>
+    </div>
+    <div>
+      <router-view />
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
@@ -11,5 +44,16 @@ body,
   margin: 0;
   padding: 0;
   background: white;
+}
+
+.page_grid {
+  height: 100%;
+  display: grid;
+  grid-template-columns: 200px 1fr;
+}
+.page_left {
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 </style>
