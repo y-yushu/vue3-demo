@@ -8,9 +8,40 @@ const carriageReturn = () => {
   dong.value = true
   setTimeout(() => (dong.value = false), 800)
 }
+// 小demo
+const demo = () => {
+  console.log(Math.random() <= 0.666 ? 666 : Math.random())
+}
+// 还有一道题   abc三种方法    a执行5次后，通知b去执行。b执行10次后，通知c去执行。c执行15次后，通知a去执行
+// 小demo2
+const demo2 = () => {
+  // 判断当前运行方法，并执行下次运行
+  let n = 1 // 总轮次
+  const to = (title, cb, to, t, max) => {
+    console.log(`第<${t}>次运行<${title}>方法`)
+    if (t < max) cb(t + 1)
+    else {
+      // 判断轮次，每次执行c完，轮次加1
+      console.log(`第<${n}>轮执行完成`)
+      if (title === 'c') n++
+      if (n > 10) return
+      // 不暂停继续执行
+      to(1)
+    }
+  }
+  // 方法A：执行2次后运行B
+  const a = t => setTimeout(() => to('a', a, b, t, 5), 500)
+  // 方法B：执行3次后运行C
+  const b = t => setTimeout(() => to('b', b, c, t, 10), 500)
+  // 方法C：执行4次后运行A
+  const c = t => setTimeout(() => to('c', c, a, t, 15), 500)
+  // 启动方法A
+  a(1)
+}
 </script>
 
 <template>
+  <el-button type="text" @click="demo2">触发</el-button>
   <el-input class="page_input" :class="[{ shake: dong }]" v-model="input" @keyup.enter="carriageReturn" />
   <div class="box">
     <div class="box_1">左</div>
