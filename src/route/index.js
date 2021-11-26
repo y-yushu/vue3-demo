@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // 做些小题
+    path: '/20211122',
+    title: '做些小题',
+    component: () => import('@/view/20211122/index.vue')
+  },
+  {
     // CSS实现3D正方形
     path: '/20211111',
     title: 'CSS实现3D正方形',
