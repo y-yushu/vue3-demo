@@ -4,6 +4,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     // 做些小题
+    path: '/20211214',
+    title: 'grid布局做瀑布流',
+    component: () => import('@/view/20211214/index.vue')
+  },
+  {
+    // 做些小题
     path: '/20211122',
     title: '做些小题',
     component: () => import('@/view/20211122/index.vue')
