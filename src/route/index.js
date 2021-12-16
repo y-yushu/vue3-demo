@@ -3,7 +3,13 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
-    // 做些小题
+    // 使用div制作特殊图形界面
+    path: '/20211216',
+    title: '使用div制作特殊图形界面',
+    component: () => import('@/view/20211216/index.vue')
+  },
+  {
+    // grid布局做瀑布流
     path: '/20211214',
     title: 'grid布局做瀑布流',
     component: () => import('@/view/20211214/index.vue')
