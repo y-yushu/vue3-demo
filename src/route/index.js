@@ -4,6 +4,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 const routes = [
   {
     // 使用div制作特殊图形界面
+    path: '/20211227',
+    title: 'pdfjs解析PDF文件',
+    component: () => import('@/view/20211227/index.vue')
+  },
+  {
+    // 使用div制作特殊图形界面
     path: '/20211216',
     title: '使用div制作特殊图形界面',
     component: () => import('@/view/20211216/index.vue')
