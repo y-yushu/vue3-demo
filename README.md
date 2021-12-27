@@ -1,5 +1,11 @@
 ### 练手项目
 
+### 20221年12月27日
+
+- 使用pdfjs解析pdf并显示
+
+[http://mozilla.github.io/pdf.js/examples/](http://mozilla.github.io/pdf.js/examples/)
+
 ### 2021 年 11 月 11 日
 
 - input回车抖动，3d盒子效果
