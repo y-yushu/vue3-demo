@@ -1,14 +1,20 @@
 ### 练手项目
 
-### 20221年12月27日
+### 2021 年 12 月 28 日
 
-- 使用pdfjs解析pdf并显示
+- 完成pdf解析后加载到页面
+
+> 测试了100M的文件，加载很卡，写了20ms的延时器放缓加载速度，页面显示友好了很多，但是这个问题还是没用根本解决
+
+### 20221 年 12 月 27 日
+
+- 使用 pdfjs 解析 pdf 并显示
 
 [http://mozilla.github.io/pdf.js/examples/](http://mozilla.github.io/pdf.js/examples/)
 
 ### 2021 年 11 月 11 日
 
-- input回车抖动，3d盒子效果
+- input 回车抖动，3d 盒子效果
 - 学习使用组件嵌套（如`<el-form>`、`<el-form-item>`）
 - 发布老功能（我都不知道有啥）
 
