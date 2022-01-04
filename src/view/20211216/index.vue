@@ -18,11 +18,12 @@ onMounted(() => {
   // 容器初始化
   const app = new PIXI.Application({ width: width.value, height: height.value, backgroundColor: 0x0b2144 })
   page.appendChild(app.view)
-  // 引入素材
+  // 监听引入进度
   app.loader.onProgress.add((loader, resource) => {
-    console.log('loading: ' + resource.url)
-    console.log('progress: ' + loader.progress + '%')
+    console.log('引入素材: ' + resource.url)
+    console.log('引入进度: ' + loader.progress + '%')
   })
+  // 引入素材
   app.loader
     .add([
       {
@@ -40,14 +41,18 @@ onMounted(() => {
       cat.x = app.renderer.width / 2
       cat.y = app.renderer.height / 2
       cat.anchor.set(0.5, 0.5)
-      app.stage.addChild(cat)
+      const animals = new PIXI.Container()
+      animals.addChild(cat)
+      console.log('width', animals.width)
+      console.log('height', animals.height)
+      app.stage.addChild(animals)
       // 设置汉堡位置
-      const hamb = new PIXI.Sprite(resources.hamb.texture)
-      hamb.x = 200
-      hamb.y = 200
-      hamb.width = 200
-      hamb.height = 200
-      app.stage.addChild(hamb)
+      // const hamb = new PIXI.Sprite(resources.hamb.texture)
+      // hamb.x = 200
+      // hamb.y = 200
+      // hamb.width = 200
+      // hamb.height = 200
+      // app.stage.addChild(hamb)
       // 监听帧更新
       app.ticker.add(() => {
         // 每一帧我们都让猫转一圈
@@ -58,7 +63,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <div id="page" class="background"></div>
+  <div id="page" class="background" />
 </template>
 
 <style lang="scss" scoped>
