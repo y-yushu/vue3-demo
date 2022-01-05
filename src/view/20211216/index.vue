@@ -29,10 +29,6 @@ onMounted(() => {
       {
         name: 'cat',
         url: Cat
-      },
-      {
-        name: 'hamb',
-        url: Hamb
       }
     ])
     .load((_, resources) => {
@@ -41,22 +37,20 @@ onMounted(() => {
       cat.x = app.renderer.width / 2
       cat.y = app.renderer.height / 2
       cat.anchor.set(0.5, 0.5)
+      let zhuan = true
+      cat.interactive = true
+      cat.buttonMode = true
+      cat.on('mousedown', event => {
+        console.log('触发点击', event)
+        zhuan = !zhuan
+      })
       const animals = new PIXI.Container()
       animals.addChild(cat)
-      console.log('width', animals.width)
-      console.log('height', animals.height)
       app.stage.addChild(animals)
-      // 设置汉堡位置
-      // const hamb = new PIXI.Sprite(resources.hamb.texture)
-      // hamb.x = 200
-      // hamb.y = 200
-      // hamb.width = 200
-      // hamb.height = 200
-      // app.stage.addChild(hamb)
       // 监听帧更新
       app.ticker.add(() => {
         // 每一帧我们都让猫转一圈
-        cat.rotation += 0.01
+        if (zhuan) cat.rotation += 0.01
       })
     })
 })
