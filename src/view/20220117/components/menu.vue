@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onBeforeUnmount, defineExpose } from 'vue'
+import { ref, onBeforeUnmount } from 'vue'
 
 // 显示控制&定位控制
 const menuRef = ref(null)

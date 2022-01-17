@@ -1,5 +1,5 @@
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import Menu from './components/menu.vue'
 
 // 隐藏菜单方法
