@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // 自定义右键菜单
+    path: '/20220117',
+    title: '自定义右键菜单',
+    component: () => import('@/view/20220117/index.vue')
+  },
+  {
     // 使用div制作特殊图形界面
     path: '/20211227',
     title: 'pdfjs解析PDF文件',

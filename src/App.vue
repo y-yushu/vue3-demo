@@ -16,6 +16,19 @@ watch(
   () => router.currentRoute.value.path,
   path => (active.value = path)
 )
+
+/**
+ * 改变左侧菜单栏宽度
+ * 注释：传递到每个组件中，如果组件需要，则单个组件自己调用
+ */
+const gridWidth = ref('200px')
+const changeWidth = () => {
+  if (gridWidth.value) {
+    gridWidth.value = 0
+  } else {
+    gridWidth.value = '200px'
+  }
+}
 </script>
 
 <template>
@@ -28,7 +41,7 @@ watch(
       </el-menu>
     </div>
     <div>
-      <router-view />
+      <router-view :change="changeWidth" />
     </div>
   </div>
 </template>
@@ -47,7 +60,7 @@ body,
 .page_grid {
   height: 100%;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: v-bind('gridWidth') 1fr;
 }
 .page_left {
   height: 100%;
