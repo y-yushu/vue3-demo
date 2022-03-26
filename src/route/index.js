@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // Y轴不等距
+    path: '/20220326',
+    title: 'Y轴不等距',
+    component: () => import('@/view/20220326/index.vue')
+  },
+  {
     // 自定义右键菜单
     path: '/20220117',
     title: '自定义右键菜单',
