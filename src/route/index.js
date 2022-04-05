@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // 地铁换乘计算
+    path: '/20220404',
+    title: '地铁换乘计算',
+    component: () => import('@/view/20220404/index.vue')
+  },
+  {
     // Y轴不等距
     path: '/20220326',
     title: 'Y轴不等距',
