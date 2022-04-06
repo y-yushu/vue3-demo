@@ -23,13 +23,13 @@ export default [
     children: [
       { id: 'miaolinglu', starttime1: '', starttime2: '', endtime1: '', endtime2: '' }, // 2号线
       { id: 'huizhanzhongxin', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
-      // { id: 'qingdaoerzhong', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
-      // { id: 'qingdaokeda', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
-      // { id: 'zhangcun', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
-      // { id: 'kutao', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
-      // { id: 'haiyangdaxue', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
-      // { id: 'shiboyuan', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
-      // { id: 'beizhai', starttime1: '', starttime2: '', endtime1: '', endtime2: '' }
+      { id: 'qingdaoerzhong', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
+      { id: 'qingdaokeda', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
+      { id: 'zhangcun', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
+      { id: 'kutao', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
+      { id: 'haiyangdaxue', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
+      { id: 'shiboyuan', starttime1: '', starttime2: '', endtime1: '', endtime2: '' },
+      { id: 'beizhai', starttime1: '', starttime2: '', endtime1: '', endtime2: '' }
     ]
   }
 ]

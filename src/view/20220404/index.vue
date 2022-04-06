@@ -3,7 +3,7 @@ import metro from './data/index'
 import Tool from './data/utils'
 
 const qingdao = new Tool(metro.qingdao)
-const path = qingdao.getPath('tonganlu', 'shilaorenyuchang')
+const path = qingdao.getPath('beizhai', 'qingdaokeda')
 console.log(path)
 // let aaa = ['111', '222', '333', '444', '555']
 // aaa.splice(aaa.length - 1, 1)

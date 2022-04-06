@@ -66,101 +66,93 @@ class uitl {
   getPath = (startid, endid) => {
     if (startid === endid) return console.error('【当前站点已到达】')
     console.log('开始计算路径', startid, endid)
+    // 计算可行路径 上
     // 完成路径
     let linefin = []
     // 过程路径
     let linelog = []
-    // 获取路径
-    const plan1 = (id1, line = []) => {
-      console.log(`===========================================起点：${id1}`)
-      let nexts = getNext(id1, this.line)
+    /**
+     * 递归获取路径
+     * @param {String} _startid 当前站点id
+     * @param {Array} line 当前已走路线
+     * @returns 递归调用
+     */
+    const recursionGetPath = (_startid, _line = []) => {
+      let nexts = getNext(_startid, this.line)
       // 不能往回走
-      if (line.length) {
-        nexts = nexts.filter(f => ifAlre(f.eid, line))
+      if (_line.length) {
+        nexts = nexts.filter(f => ifAlre(f.eid, _line))
+      }
+      // 调用递归
+      const toPlan1 = next => {
+        if (next.eid === endid) {
+          addfin(1, [..._line, next])
+          return recursionAgen()
+        }
+        return recursionGetPath(next.eid, [..._line, next])
       }
       // 判断之后有几个方向
       if (!nexts.length) {
-        console.log(`路线走到终点${id1}`)
         // 下一段为空
-        linefin.push({
-          type: 0,
-          line: line
-        })
-        return plan2()
+        addfin(0, _line)
+        return recursionAgen()
       } else if (nexts.length === 1) {
-        // 下一段只有一个
-        const seg1 = nexts[0]
-        console.log(`路线${id1}只有一个方向：${seg1.eid}`)
-        console.log('++++++++++++')
-        console.log(95, seg1.eid)
-        console.log(96, endid)
-        // eid是否为终点
-        if (seg1.eid === endid) {
-          linefin.push({
-            type: 1,
-            line: [...line, seg1]
-          })
-          return plan2()
-        } else {
-          return plan1(seg1.eid, [...line, seg1])
-        }
+        // 进行递归
+        return toPlan1(nexts[0])
       } else {
-        console.log(`路线${id1}，有多个方向`)
-        // 下一段有多个
-        const len = linelog.length
-        if (!len) {
-          console.log(`首次创建历史路径${nexts[0].eid}`)
+        // 增加一条log
+        const addlog = next => linelog.push({ sid: _startid, line: _line, verify: [next.eid] })
+        // 历史节点为空
+        if (!linelog.length) {
           // 第一次
-          linelog.push({
-            sid: id1,
-            line: line,
-            verify: [nexts[0].eid]
-          })
-          return plan1(nexts[0].eid, [...line, nexts[0]])
-        } else {
-          // 日志表最后一项
-          const endlog = linelog[len - 1]
-          const getVerfy = eid => {
-            return !endlog.verify.find(f => f === eid)
-          }
-          const mores = nexts.find(f => getVerfy(f.eid))
+          addlog(nexts[0])
+          return toPlan1(nexts[0])
+        }
+        // 获取下个判定节点
+        const endlog = linelog[linelog.length - 1]
+        const getVerfy = eid => !endlog.verify.find(f => f === eid)
+        const mores = nexts.find(f => getVerfy(f.eid))
+        if (endlog.sid === _startid) {
+          // 该节点所有项都已完成,删除该节点
           if (!mores) {
-            // 当前项已完成
-            return plan2(true)
-          } else {
-            if (endlog.sid !== id1) {
-              console.log(`创建历史路径${mores.eid}`)
-              // 过程添加
-              linelog.push({
-                sid: id1,
-                line: line,
-                verify: [mores.eid]
-              })
-            } else {
-              console.log(`增加历史路径${mores.eid}`)
-              linelog[len - 1].verify.push(mores.eid)
-            }
-            return plan1(mores.eid, [...line, mores])
+            return recursionAgen(true)
           }
+          endlog.verify.push(mores.eid)
+          return toPlan1(mores)
+        } else {
+          // 历史节点列表不存在该节点
+          addlog(mores)
+          return toPlan1(mores)
         }
       }
     }
-    // 重新调用获取路径
-    const plan2 = (isdel = false) => {
-      if (isdel) {
-        console.log('==============触发删除回退')
+    /**
+     * 从上一节点重新开始递归
+     * @param {Boolean} _isdel 是否删除上一节点
+     * @returns 继续递归 || 所有路径
+     */
+    const recursionAgen = (_isdel = false) => {
+      if (_isdel) {
         linelog.splice(linelog.length - 1, 1)
-        // 当所有log跑完之后，弹出所有路径
-        if (linelog.length - 1 <= 0) {
-          return linefin
-        }
-        return plan1(linelog[linelog.length - 1].sid, linelog[linelog.length - 1].line)
-      } else {
-        console.log('==============触发回退')
-        return plan1(linelog[linelog.length - 1].sid, linelog[linelog.length - 1].line)
       }
+      // 所有分支完成，返回所有路线数据
+      if (linelog.length - 1 <= 0) {
+        return linefin
+      }
+      return recursionGetPath(linelog[linelog.length - 1].sid, linelog[linelog.length - 1].line)
     }
-    return plan1(startid, [])
+    // 增加已完成路线
+    const addfin = (_type, _line) => {
+      // 当前路线保存
+      linefin.push({
+        type: _type,
+        line: _line
+      })
+    }
+    // 获取路线
+    const paths = recursionGetPath(startid, [])
+    // 计算可行路径 下
+    return paths
   }
 }
 
