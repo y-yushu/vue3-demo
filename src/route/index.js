@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // 指纹扫描动画
+    path: '/20220422',
+    title: '指纹扫描动画',
+    component: () => import('@/view/20220422/index.vue')
+  },
+  {
     // 地铁换乘计算
     path: '/20220404',
     title: '地铁换乘计算',
