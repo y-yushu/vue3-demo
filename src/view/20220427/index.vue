@@ -66,7 +66,7 @@
     position: absolute;
     left: calc(var(--i) * 100px);
     bottom: -12px;
-    animation: shadow 2s linear infinite calc(var(--i) * 0.3s);
+    animation: shadow 2s linear infinite calc(var(--i) * 0.3s - 2s);
   }
   @keyframes shadow {
     0%,

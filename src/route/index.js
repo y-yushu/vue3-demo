@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // 图片滑动效果
+    path: '/20220427_2',
+    title: '图片滑动效果',
+    component: () => import('@/view/20220427_2/index.vue')
+  },
+  {
     // 小球跳动效果
     path: '/20220427',
     title: '小球跳动效果',
