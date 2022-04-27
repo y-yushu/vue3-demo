@@ -3,11 +3,18 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // 小球跳动效果
+    path: '/20220427',
+    title: '小球跳动效果',
+    component: () => import('@/view/20220427/index.vue')
+  },
+  {
     // 卡片旋转浮动
     path: '/20220424',
     title: '卡片旋转浮动',
     component: () => import('@/view/20220424/index.vue')
-  },{
+  },
+  {
     // 指纹扫描动画
     path: '/20220422',
     title: '指纹扫描动画',
