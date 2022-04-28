@@ -3,6 +3,12 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // 当前路由列表
 const routes = [
   {
+    // 图片翻转效果
+    path: '/20220428_2',
+    title: '图片翻转效果',
+    component: () => import('@/view/20220428_2/index.vue')
+  },
+  {
     // 旋转loading
     path: '/20220428',
     title: '旋转loading',
